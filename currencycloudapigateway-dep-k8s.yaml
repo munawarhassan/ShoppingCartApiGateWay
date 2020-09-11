@@ -1,0 +1,44 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: currencycloudapigateway
+    version: v1
+  name: currencycloudapigateway
+spec: 
+  strategy: # Default, so usually not specified
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1  # specifies the maximum number of Pods that can be created over the desired number of Pods
+      maxUnavailable: 25% #specifies the maximum number of Pods that can be unavailable during the update process
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: currencycloudapigateway
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: currencycloudapigateway
+        version: v1
+
+    spec: 
+
+      containers: 
+        - 
+          image: "munawarhassan/currencycloudapigateway:latest"
+          imagePullPolicy: Always
+          name: currencycloudapigateway
+          ports:
+          - name: httpport
+            containerPort: 8090
+            hostPort: 8090      
+          env:
+            - name: currencyservice.configserverurl
+              value: "http://currencyconfigserver:8888"
+            - name: currencyservice.eurekaurl
+              value: "http://currencyeurekaserver:8761/eureka"  
+
+              
+                    

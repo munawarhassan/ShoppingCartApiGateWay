@@ -1,0 +1,16 @@
+spring: 
+  cloud:
+    config:
+      uri: ${currencyservice.configserverurl:http://localhost:8888}
+      fail-fast: false  
+  application:
+    name: shoppingcartapigateway
+  profiles:
+    active: dev
+
+server:
+  port: 8090
+  
+  
+  
+# uri: ${currencyservice_configserverurl}
