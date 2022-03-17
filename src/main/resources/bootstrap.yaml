@@ -3,6 +3,10 @@ spring:
     config:
       uri: ${currencyservice.configserverurl:http://localhost:8888}
       fail-fast: false  
+    gateway:
+      discovery:
+        locator:
+          enabled: true
   application:
     name: shoppingcartapigateway
   profiles:
@@ -11,6 +15,3 @@ spring:
 server:
   port: 8090
   
-  
-  
-# uri: ${currencyservice_configserverurl}
